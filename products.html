@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products | Erode Textile Manufacturers</title>
+    <meta name="description"
+        content="Explore our wide range of textile products including premium cotton fabrics, traditional dhotis, eco-friendly bags, and industrial textiles.">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">SRGM</a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="products.html" class="active">Our Products</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="products-preview products-page reveal">
+        <div class="container">
+            <h2 class="section-title">Our Collections</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; color: #666;">
+                Discover our diverse range of products, including shirting materials, dhoties, lungies, and towels,
+                suited for all your needs.
+            </p>
+
+            <div class="product-grid">
+
+                <!-- Shirting Materials -->
+                <article class="product-card">
+                    <div class="card-content">
+                        <span class="category-tag">Apparel Fabric</span>
+                        <h3>Shirting Materials</h3>
+                        <p>
+                            We offer a wide variety of <strong>Shirting Materials</strong> available in both
+                            <strong>Pure Cotton</strong>
+                            and other <strong>Mixed Varieties</strong>. Perfect for formal wear, uniforms, and casual
+                            attire, providing
+                            comfort and style.
+                        </p>
+                        <ul>
+                            <li>Cotton & Mixed Blends</li>
+                            <li>Durable & Comfortable</li>
+                            <li>Various Designs Available</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Dhoties -->
+                <article class="product-card">
+                    <div class="card-content">
+                        <span class="category-tag">Traditional Wear</span>
+                        <h3>Dhoties</h3>
+                        <p>
+                            Embrace tradition with our premium collection of <strong>Dhoties</strong>.
+                            Available in various borders and styles, suitable for festivals, weddings, and daily use.
+                        </p>
+                        <ul>
+                            <li>Traditional & Fancy Borders</li>
+                            <li>Premium Cotton Quality</li>
+                            <li>Elegant Look</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Lungies -->
+                <article class="product-card">
+                    <div class="card-content">
+                        <span class="category-tag">Comfort Wear</span>
+                        <h3>Lungies</h3>
+                        <p>
+                            Our range of <strong>Lungies</strong> is designed for maximum comfort and durability.
+                            Available in vibrant colors and checks, they are an essential part of daily wear.
+                        </p>
+                        <ul>
+                            <li>Breathable Fabric</li>
+                            <li>Vibrant Colors & Checks</li>
+                            <li>Long-Lasting Quality</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Towels -->
+                <article class="product-card">
+                    <div class="card-content">
+                        <span class="category-tag">Essentials</span>
+                        <h3>Towels</h3>
+                        <p>
+                            Soft, absorbent, and durable <strong>Towels</strong> for everyday use.
+                            We provide high-quality cotton towels that are gentle on the skin.
+                        </p>
+                        <ul>
+                            <li>100% Cotton</li>
+                            <li>High Absorbency</li>
+                            <li>Various Sizes Available</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>SRGM</h4>
+                    <p>Wholesale distributors in Erode since 2002. Your trusted partner for quality textiles.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>Sri RajaGanapathi Mills</li>
+                        <li>+91 94433 20033</li>
+                        <li>srirajaganapathimills02@gmail.com</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Location</h4>
+                    <iframe
+                        src="https://maps.google.com/maps?q=Sri+Rajaganapathi+Mills,+Erode&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        width="100%" height="150" style="border:0; border-radius: 8px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 SRO Sri RajaGanapathi Mills. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Scroll Reveal Animation Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal, .reveal-fade');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100; // Trigger distance
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Trigger once on load
+        });
+    </script>
+</body>
+
+</html>
