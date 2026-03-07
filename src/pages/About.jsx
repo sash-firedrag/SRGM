@@ -53,16 +53,30 @@ const About = () => {
                                 Located in the heart of Erode city, we serve a vast network of clients with varied textile
                                 needs.
                             </p>
-                            <p style={{ marginBottom: '1rem' }}>
-                                We provide a diverse range of products including:
-                            </p>
-                            <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
-                                <li><strong>Shirting Materials</strong> (Cotton & other mixed varieties)</li>
-                                <li><strong>Dhoties</strong></li>
-                                <li><strong>Lungies</strong></li>
-                                <li><strong>Towels</strong></li>
-                            </ul>
                         </div>
+                    </div>
+
+                    {/* Our Product Range Section */}
+                    <div className="product-range-section reveal-fade" style={{ marginTop: '4rem', marginBottom: '2rem', padding: '2rem 3rem', backgroundColor: '#fff', borderRadius: '12px', boxShadow: 'var(--shadow-sm)' }}>
+                        <h2 className="section-title" style={{ textAlign: 'left', marginBottom: '2rem', fontSize: '2rem' }}>Our Product Range</h2>
+                        <ul style={{ listStyleType: 'none', paddingLeft: '0', fontSize: '1.05rem', lineHeight: '1.8' }}>
+                            <li style={{ marginBottom: '1rem', paddingLeft: '1.5rem', position: 'relative' }}>
+                                <span style={{ position: 'absolute', left: 0, color: 'var(--secondary-color)', fontWeight: 'bold', fontSize: '1.2rem' }}>•</span>
+                                <strong>Shirting Materials:</strong> A wide variety of Pure Cotton and Mixed Varieties perfect for formal and casual wear.
+                            </li>
+                            <li style={{ marginBottom: '1rem', paddingLeft: '1.5rem', position: 'relative' }}>
+                                <span style={{ position: 'absolute', left: 0, color: 'var(--secondary-color)', fontWeight: 'bold', fontSize: '1.2rem' }}>•</span>
+                                <strong>Dhoties:</strong> Premium collection of Dhoties available with various traditional borders and styles.
+                            </li>
+                            <li style={{ marginBottom: '1rem', paddingLeft: '1.5rem', position: 'relative' }}>
+                                <span style={{ position: 'absolute', left: 0, color: 'var(--secondary-color)', fontWeight: 'bold', fontSize: '1.2rem' }}>•</span>
+                                <strong>Lungies:</strong> Designed for maximum comfort, available in vibrant colors and checks for daily wear.
+                            </li>
+                            <li style={{ marginBottom: '1rem', paddingLeft: '1.5rem', position: 'relative' }}>
+                                <span style={{ position: 'absolute', left: 0, color: 'var(--secondary-color)', fontWeight: 'bold', fontSize: '1.2rem' }}>•</span>
+                                <strong>Towels:</strong> Soft, highly absorbent, and durable 100% cotton towels that are gentle on the skin.
+                            </li>
+                        </ul>
                     </div>
 
                     {/* Stats */}

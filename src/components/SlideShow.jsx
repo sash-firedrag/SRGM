@@ -5,10 +5,6 @@ const SlideShow = () => {
 
     const slides = [
         {
-            src: "/hero_textile.png",
-            text: "Premium Fabrics"
-        },
-        {
             src: "/slideshow img-1.jpg",
             text: "State of the Art Machinery"
         },
@@ -17,8 +13,16 @@ const SlideShow = () => {
             text: "Quality Assurance"
         },
         {
-            src: "/Screenshot 2025-10-04 232436.png",
+            src: "/slideshow img-3.jpg",
+            text: "Premium Fabrics"
+        },
+        {
+            src: "/slideshow img-4.jpg",
             text: "Bulk Production"
+        },
+        {
+            src: "/slideshow img-5.jpg",
+            text: "Excellence in Textiles"
         }
     ];
 
