@@ -24,7 +24,7 @@ const Footer = () => {
                         <h4>Contact Us</h4>
                         <ul>
                             <li>Sri RajaGanapathi Mills</li>
-                            <li>+91 94433 20033</li>
+                            <li>+91 94433 20033 | +91 9524020033</li>
                             <li>srirajaganapathimills02@gmail.com</li>
                         </ul>
                     </div>

@@ -89,8 +89,10 @@ const Contact = () => {
                                     <div className="info-text">
                                         <h3>Mobile Number</h3>
                                         <p>+91 94433 20033</p>
+                                        <p>+91 95240 20033</p>
                                     </div>
                                 </div>
+
 
                                 <div className="info-item">
                                     <div className="info-icon">
