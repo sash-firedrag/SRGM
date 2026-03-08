@@ -1,6 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Products = () => {
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+    const dhotiesImages = [
+        '/Dhoties img-1.jpeg',
+        '/Dhoties img-2.jpeg',
+        '/Dhoties img-3.jpeg',
+        '/Dhoties img-4.jpeg',
+        '/Dhoties img-5.jpeg'
+    ];
+
+    useEffect(() => {
+        if (selectedCategory) {
+            setCurrentSlideIndex(0);
+        }
+    }, [selectedCategory]);
+
+    const nextSlide = (e) => {
+        e.stopPropagation();
+        setCurrentSlideIndex((prev) => (prev + 1) % dhotiesImages.length);
+    };
+
+    const prevSlide = (e) => {
+        e.stopPropagation();
+        setCurrentSlideIndex((prev) => (prev === 0 ? dhotiesImages.length - 1 : prev - 1));
+    };
+
     useEffect(() => {
         const reveals = document.querySelectorAll('.reveal, .reveal-fade');
         const revealOnScroll = () => {
@@ -46,7 +73,7 @@ const Products = () => {
                     </article>
 
                     {/* Dhoties */}
-                    <article className="product-card">
+                    <article className="product-card interactive" onClick={() => setSelectedCategory('dhoties')}>
                         <div className="card-content">
                             <span className="category-tag">Traditional Wear</span>
                             <h3>Dhoties</h3>
@@ -95,6 +122,58 @@ const Products = () => {
                             </ul>
                         </div>
                     </article>
+                </div>
+            </div>
+
+            {/* Modal Gallery */}
+            <div className={`modal-overlay ${selectedCategory === 'dhoties' ? 'active' : ''}`} onClick={() => setSelectedCategory(null)}>
+                <div className="modal-content product-modal" onClick={(e) => e.stopPropagation()}>
+                    <button className="modal-close" onClick={() => setSelectedCategory(null)} aria-label="Close modal">&times;</button>
+
+                    <div className="product-details-container">
+                        {/* Slideshow */}
+                        <div className="product-slideshow">
+                            <div className="slideshow-wrapper">
+                                <img src={dhotiesImages[currentSlideIndex]} alt={`Dhoties view ${currentSlideIndex + 1}`} className="active-slide" />
+                                <button className="slide-btn prev-btn" onClick={prevSlide}>&#10094;</button>
+                                <button className="slide-btn next-btn" onClick={nextSlide}>&#10095;</button>
+                            </div>
+                            <div className="slideshow-dots">
+                                {dhotiesImages.map((_, idx) => (
+                                    <span
+                                        key={idx}
+                                        className={`dot ${currentSlideIndex === idx ? 'active' : ''}`}
+                                        onClick={(e) => { e.stopPropagation(); setCurrentSlideIndex(idx); }}
+                                    ></span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Details */}
+                        <div className="product-info">
+                            <span className="category-tag">Premium Collection</span>
+                            <h2>Traditional Dhoties</h2>
+                            <p className="product-description">
+                                Experience the ultimate comfort and elegance with our premium traditional dhoties, perfectly woven for daily wear and special occasions.
+                            </p>
+
+                            <ul className="product-specs">
+                                <li><strong>Cloth:</strong> Komudu Cotton</li>
+                                <li><strong>Available Colours:</strong> Blue, Black, and Olive Green</li>
+                                <li><strong>Pattern:</strong> Solid with colored borders</li>
+                                <li><strong>Texture:</strong> Soft, Breathable, and Skin-friendly</li>
+                            </ul>
+
+                            <div className="action-buttons">
+                                <a href="mailto:info@srgm.com?subject=Enquiry for Traditional Dhoties" className="btn primary-btn">
+                                    ✉️ Enquire Now
+                                </a>
+                                <a href="https://wa.me/919443320033?text=Hi, I would like to enquire about the Traditional Dhoties (Komudu Cotton)." target="_blank" rel="noreferrer" className="btn whatsapp-btn">
+                                    💬 WhatsApp Us
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

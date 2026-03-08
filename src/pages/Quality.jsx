@@ -54,6 +54,30 @@ const Quality = () => {
                         </ul>
                     </div>
 
+                    {/* MSME Recognition Section */}
+                    <div className="msme-recognition reveal-fade" style={{ marginBottom: '4rem', padding: '2rem 3rem', backgroundColor: '#fff', borderRadius: '12px', boxShadow: 'var(--shadow-sm)', display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap', border: '1px solid rgba(0,0,0,0.05)' }}>
+                        <div style={{ flex: '0 0 auto', width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fcfcfc', borderRadius: '12px', padding: '15px' }}>
+                            <img
+                                src="/msme-logo.png"
+                                alt="MSME Recognised Logo"
+                                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = 'https://upload.wikimedia.org/wikipedia/commons/4/47/MSME_Logo.png';
+                                }}
+                            />
+                        </div>
+                        <div style={{ flex: '1 1 300px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', color: 'var(--primary-color)' }}>MSME Recognised</h3>
+                                <span style={{ backgroundColor: '#10b981', color: 'white', padding: '0.3rem 0.8rem', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Verified</span>
+                            </div>
+                            <p style={{ fontSize: '1.05rem', lineHeight: '1.8', color: 'var(--text-muted)' }}>
+                                Sri RajaGanapathi Mills (SRGM) is proud to be formally recognised by the <strong>Ministry of Micro, Small & Medium Enterprises (MSME)</strong>, Government of India. This certification reflects our authenticity, operational excellence, and commitment to delivering the highest quality in the textile industry.
+                            </p>
+                        </div>
+                    </div>
+
                     {/* Company Details Grid */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
 
@@ -64,7 +88,7 @@ const Quality = () => {
                             </h3>
                             <div style={{ marginBottom: '1.2rem' }}>
                                 <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginBottom: '0.2rem' }}>GST Registration Number</p>
-                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>[Your GST Number]</p>
+                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>33AAVFS3126L1ZS</p>
                             </div>
                             <div style={{ marginBottom: '1.2rem' }}>
                                 <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginBottom: '0.2rem' }}>GST Registration Date</p>
@@ -87,7 +111,7 @@ const Quality = () => {
                             </h3>
                             <div style={{ marginBottom: '1.2rem' }}>
                                 <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Bank Name</p>
-                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>[Your Bank Name]</p>
+                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>Punjab National Bank</p>
                             </div>
                             <div style={{ marginBottom: '1.2rem' }}>
                                 <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Account Name</p>
@@ -95,11 +119,11 @@ const Quality = () => {
                             </div>
                             <div style={{ marginBottom: '1.2rem' }}>
                                 <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Account Number</p>
-                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>[Your Bank Account Number]</p>
+                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>0165008700006737</p>
                             </div>
                             <div style={{ marginBottom: '1.2rem' }}>
                                 <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>IFSC Code</p>
-                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>[Your IFSC Code]</p>
+                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>PUNB0016500</p>
                             </div>
                         </div>
 
