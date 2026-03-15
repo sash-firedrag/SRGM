@@ -63,7 +63,7 @@ const Quality = () => {
                                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                                 onError={(e) => {
                                     e.target.onerror = null;
-                                    e.target.src = 'https://upload.wikimedia.org/wikipedia/commons/4/47/MSME_Logo.png';
+                                    e.target.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/MSME_logo_%28colour%29.svg/512px-MSME_logo_%28colour%29.svg.png';
                                 }}
                             />
                         </div>
@@ -124,6 +124,32 @@ const Quality = () => {
                             <div style={{ marginBottom: '1.2rem' }}>
                                 <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>IFSC Code</p>
                                 <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>PUNB0016500</p>
+                            </div>
+                        </div>
+
+                        {/* Customization Details */}
+                        <div className="company-info-card reveal-fade" style={{ padding: '2rem', backgroundColor: '#f8fdf9', border: '1px solid rgba(0,0,0,0.05)', borderRadius: '12px', boxShadow: 'var(--shadow-sm)' }}>
+                            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--secondary-color)' }}>
+                                Customization Services
+                            </h3>
+                            <ul style={{ listStyleType: 'none', paddingLeft: '0', fontSize: '1.05rem', lineHeight: '1.8', color: 'var(--text-dark)' }}>
+                                <li style={{ marginBottom: '1rem', paddingLeft: '1.8rem', position: 'relative' }}>
+                                    <span style={{ position: 'absolute', left: 0, color: 'var(--primary-color)', fontWeight: 'bold' }}>1.</span>
+                                    We provide customization in folding the cloth, like 40-meters cutting, etc.
+                                </li>
+                                <li style={{ marginBottom: '1rem', paddingLeft: '1.8rem', position: 'relative' }}>
+                                    <span style={{ position: 'absolute', left: 0, color: 'var(--primary-color)', fontWeight: 'bold' }}>2.</span>
+                                    We can provide fabrics with or without screening based on your requirements.
+                                </li>
+                                <li style={{ marginBottom: '1rem', paddingLeft: '1.8rem', position: 'relative' }}>
+                                    <span style={{ position: 'absolute', left: 0, color: 'var(--primary-color)', fontWeight: 'bold' }}>3.</span>
+                                    Packaging is done with the utmost care, and high-quality packaging materials are used.
+                                </li>
+                            </ul>
+                            <div style={{ marginTop: '1.5rem', padding: '1rem', backgroundColor: '#e8f4ea', borderRadius: '8px', borderLeft: '4px solid var(--secondary-color)' }}>
+                                <p style={{ margin: 0, fontSize: '0.95rem', color: 'var(--primary-color)', fontWeight: '500' }}>
+                                    ✨ A custom cloth can also be printed and delivered (Sample needed).
+                                </p>
                             </div>
                         </div>
 

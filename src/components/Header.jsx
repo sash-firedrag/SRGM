@@ -27,15 +27,18 @@ const Header = () => {
             {/* Header */}
             <header>
                 <div className="container">
-                    <nav>
-                        <img src="/SRGM_LOGO-removebg-preview.png" style={{ width: '10%' }} alt="SRGM Logo" />
-                        <Link to="/" className="logo">Sri RajaGanapathi Mills</Link>
-                        <div className="nav-links">
+                    <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', flexWrap: 'wrap', gap: '1rem' }}>
+                        <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '15px', marginRight: 'auto' }}>
+                            <img src="/SRGM_LOGO-removebg-preview.png" style={{ height: '60px', width: 'auto', objectFit: 'contain' }} alt="SRGM Logo" />
+                            <span className="logo" style={{ margin: 0, whiteSpace: 'nowrap' }}>Sri RajaGanapathi Mills</span>
+                        </Link>
+                        <div className="nav-links" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
                             <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
                             <NavLink to="/products" className={({ isActive }) => isActive ? "active" : ""}>Our Products</NavLink>
                             <NavLink to="/about" className={({ isActive }) => isActive ? "active" : ""}>About Us</NavLink>
                             <NavLink to="/quality" className={({ isActive }) => isActive ? "active" : ""}>Quality</NavLink>
                             <NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""}>Contact</NavLink>
+                            <NavLink to="/admin" className={({ isActive }) => isActive ? "active" : ""} style={{ fontWeight: '600', color: 'var(--primary-color)' }}>Admin Login</NavLink>
                         </div>
                     </nav>
                 </div>

@@ -207,6 +207,36 @@ nav img {
     font-weight: 400;
 }
 
+/* --- Product Filter --- */
+.product-filter-container {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    padding: 0 20px;
+}
+
+.product-search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.05rem;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    border-radius: 30px;
+    background-color: #fff;
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    transition: all var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
+}
+
+.product-search-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.15);
+}
+
+.product-search-input::placeholder {
+    color: #999;
+}
+
 /* --- Product Grid & Cards --- */
 .product-grid {
     display: grid;

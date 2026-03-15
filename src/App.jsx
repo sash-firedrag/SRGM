@@ -9,6 +9,10 @@ import About from './pages/About';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
 import Quality from './pages/Quality';
+import Enquiry from './pages/Enquiry';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -23,6 +27,11 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/quality" element={<Quality />} />
+          <Route path="/enquiry" element={<Enquiry />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          </Route>
         </Routes>
       </main>
       <Footer />
