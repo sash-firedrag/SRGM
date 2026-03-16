@@ -9,6 +9,7 @@ import nodemailer from 'nodemailer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import { Storage } from 'megajs';
 import Enquiry from './models/Enquiry.js';
 import Product from './models/Product.js';
 
@@ -40,16 +41,24 @@ app.use(express.json());
 // Serve static files from the public directory
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-// Configure Multer for File Uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, uploadDir);
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); // Append extension
-    }
-});
+// Configure Multer for File Uploads (Memory Storage for Mega upload)
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
+// Pre-initialize Mega connection
+let megaStorage = null;
+const initMega = async () => {
+    try {
+        megaStorage = await new Storage({
+            email: 'sashwathp.23csd@kongu.edu',
+            password: 'Sash@2005p'
+        }).ready;
+        console.log('✅ Mega Cloud Storage Connected');
+    } catch (err) {
+        console.error('❌ Failed to connect to Mega:', err);
+    }
+};
+initMega();
 
 // MongoDB Connection
 const connectDB = async () => {
@@ -393,18 +402,36 @@ app.delete('/api/products/:id', authenticateToken, async (req, res) => {
 });
 
 // Image Upload Route (Protected)
-app.post('/api/upload', authenticateToken, upload.array('images', 5), (req, res) => {
+app.post('/api/upload', authenticateToken, upload.array('images', 5), async (req, res) => {
     try {
         if (!req.files || req.files.length === 0) {
             return res.status(400).json({ message: 'No files uploaded.' });
         }
 
-        // Return the paths to the uploaded files
-        const filePaths = req.files.map(file => `/public/uploads/${file.filename}`);
+        if (!megaStorage) {
+            return res.status(503).json({ message: 'Mega storage is not connected yet.' });
+        }
+
+        const filePaths = [];
+
+        for (const file of req.files) {
+            const filename = Date.now() + path.extname(file.originalname);
+            console.log(`Uploading ${filename} to Mega...`);
+            
+            const uploadedFile = await megaStorage.upload({
+                name: filename,
+                size: file.buffer.length
+            }, file.buffer).complete;
+            
+            const link = await uploadedFile.link();
+            filePaths.push(link);
+        }
+
+        // Return the paths (Mega URLs) to the uploaded files
         res.status(200).json({ paths: filePaths });
     } catch (error) {
         console.error('Upload Error:', error);
-        res.status(500).json({ message: 'Error uploading files' });
+        res.status(500).json({ message: 'Error uploading files to cloud storage' });
     }
 });
 
