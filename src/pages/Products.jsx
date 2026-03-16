@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '../config';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -9,6 +9,7 @@ const Products = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const modalContentRef = useRef(null);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -27,6 +28,10 @@ const Products = () => {
     useEffect(() => {
         if (selectedProduct) {
             setCurrentSlideIndex(0);
+            // Reset scroll position of modal content
+            if (modalContentRef.current) {
+                modalContentRef.current.scrollTo(0, 0);
+            }
         }
     }, [selectedProduct]);
 
@@ -148,7 +153,11 @@ const Products = () => {
 
             {/* Modal Gallery */}
             <div className={`modal-overlay ${selectedProduct ? 'active' : ''}`} onClick={() => setSelectedProduct(null)}>
-                <div className="modal-content product-modal" onClick={(e) => e.stopPropagation()}>
+                <div 
+                    ref={modalContentRef}
+                    className="modal-content product-modal" 
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <button className="modal-close" onClick={() => setSelectedProduct(null)} aria-label="Close modal">&times;</button>
 
                     {selectedProduct && (
@@ -188,7 +197,7 @@ const Products = () => {
                             <div className="product-info">
                                 <span className="category-tag">{selectedProduct.category}</span>
                                 <h2>{selectedProduct.name}</h2>
-                                <p className="product-description">
+                                <p className="product-description" style={{ marginBottom: '1rem' }}>
                                     {selectedProduct.description}
                                 </p>
 

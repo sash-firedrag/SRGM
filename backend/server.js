@@ -39,6 +39,13 @@ app.use(cors({
 app.use(express.json());
 
 // Serve static files from the public directory
+app.get('/api/storage-status', (req, res) => {
+    res.json({
+        connected: !!megaStorage,
+        message: megaStorage ? 'Storage active' : 'Storage disconnected or blocked'
+    });
+});
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Configure Multer for File Uploads (Memory Storage for Mega upload)
@@ -48,14 +55,26 @@ const upload = multer({ storage: storage });
 // Pre-initialize Mega connection
 let megaStorage = null;
 const initMega = async () => {
+    const email = process.env.MEGA_EMAIL;
+    const password = process.env.MEGA_PASSWORD;
+
+    if (!email || !password) {
+        console.warn('⚠️ Mega credentials missing in environment. Cloud storage features will be disabled.');
+        return;
+    }
+
     try {
         megaStorage = await new Storage({
-            email: 'sashwathp.23csd@kongu.edu',
-            password: 'Sash@2005p'
+            email: email,
+            password: password
         }).ready;
         console.log('✅ Mega Cloud Storage Connected');
     } catch (err) {
-        console.error('❌ Failed to connect to Mega:', err);
+        if (err.message && err.message.includes('EBLOCKED')) {
+            console.error('❌ Mega Account Blocked: Your account sashwathp.23csd@kongu.edu appears to be administratively blocked by Mega. Please log in manually at mega.nz to check for security alerts or captcha.');
+        } else {
+            console.error('❌ Failed to connect to Mega:', err.message || err);
+        }
     }
 };
 initMega();

@@ -978,12 +978,14 @@ section {
     z-index: 2000;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Start from top instead of center */
+    padding: 2rem 1rem; /* Add padding for overflow spacing */
     opacity: 0;
     visibility: hidden;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    overflow-y: auto; /* Allow overlay to scroll if content is too large */
 }
 
 .modal-overlay.active {
@@ -993,16 +995,15 @@ section {
 
 .modal-content {
     background: #fff;
-    width: 90%;
+    width: 95%;
     max-width: 1100px;
-    border-radius: 16px;
-    padding: 3rem 2rem;
+    border-radius: 12px;
+    padding: 0; /* Removing inner padding, using child padding instead */
     position: relative;
-    transform: scale(0.95) translateY(20px);
+    transform: scale(0.98) translateY(10px);
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    max-height: 90vh;
-    overflow-y: auto;
+    overflow: hidden; /* Content padding handles internal scroll if needed */
 }
 
 .modal-overlay.active .modal-content {
@@ -1146,10 +1147,11 @@ section {
 
 .product-slideshow {
     flex: 1 1 50%;
-    background: #fdfdfd;
+    background: #f8f9fa;
     position: relative;
     display: flex;
     flex-direction: column;
+    min-height: 350px;
 }
 
 .slideshow-wrapper {
@@ -1159,12 +1161,12 @@ section {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 .slideshow-wrapper img.active-slide {
     max-width: 100%;
-    max-height: 400px;
+    max-height: 350px; /* Reduced from 400px */
     object-fit: contain;
     animation: fadeEffect 0.5s;
     border-radius: 8px;
@@ -1228,7 +1230,7 @@ section {
 
 .product-info {
     flex: 1 1 50%;
-    padding: 3rem;
+    padding: 2rem; /* Reduced from 3rem */
     background: #fff;
     display: flex;
     flex-direction: column;
@@ -1237,9 +1239,9 @@ section {
 
 .product-info h2 {
     font-family: var(--font-heading);
-    font-size: 2.2rem;
+    font-size: 1.8rem; /* Reduced from 2.2rem */
     color: var(--primary-color);
-    margin: 0.5rem 0 1rem;
+    margin: 0.2rem 0 0.8rem;
 }
 
 .product-description {
@@ -1320,17 +1322,18 @@ section {
 }
 
 @media (max-width: 768px) {
-
-    .product-slideshow,
+    .product-slideshow {
+        flex: 1 1 100%;
+        min-height: 250px; /* Reduced for mobile */
+    }
+    
     .product-info {
         flex: 1 1 100%;
-    }
-
-    .product-info {
-        padding: 2rem;
+        padding: 1.5rem; /* Reduced from 2rem */
     }
 
     .action-buttons {
         flex-direction: column;
+        gap: 0.8rem;
     }
 }

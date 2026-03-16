@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '../config';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useAuth } from '../components/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -42,6 +42,7 @@ const AdminDashboard = () => {
     // Modal State
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+    const modalContentRef = useRef(null);
 
     const fetchData = async () => {
         setLoading(true);
@@ -94,6 +95,9 @@ const AdminDashboard = () => {
     useEffect(() => {
         if (selectedProduct) {
             setCurrentSlideIndex(0);
+            if (modalContentRef.current) {
+                modalContentRef.current.scrollTo(0, 0);
+            }
         }
     }, [selectedProduct]);
 
@@ -715,7 +719,11 @@ const AdminDashboard = () => {
 
             {/* Product Details Modal (Reused from Products.jsx) */}
             <div className={`modal-overlay ${selectedProduct ? 'active' : ''}`} onClick={() => setSelectedProduct(null)}>
-                <div className="modal-content product-modal" onClick={(e) => e.stopPropagation()}>
+                <div 
+                    ref={modalContentRef}
+                    className="modal-content product-modal" 
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <button className="modal-close" onClick={() => setSelectedProduct(null)} aria-label="Close modal">&times;</button>
 
                     {selectedProduct && (
