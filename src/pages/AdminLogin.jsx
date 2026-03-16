@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +16,7 @@ const AdminLogin = () => {
     const handleGoogleSuccess = async (credentialResponse) => {
         try {
             // Send the Google token to our backend for verification and custom JWT issuing
-            const response = await axios.post('http://localhost:5000/api/auth/google', {
+            const response = await axios.post(`${API_BASE_URL}/api/auth/google`, {
                 token: credentialResponse.credential
             });
 
@@ -34,7 +35,7 @@ const AdminLogin = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/login', {
+            const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
                 email,
                 password
             });

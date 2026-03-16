@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -12,7 +13,7 @@ const Products = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/products');
+                const res = await axios.get(`${API_BASE_URL}/api/products`);
                 setProducts(res.data.data);
             } catch (error) {
                 console.error('Failed to fetch products', error);
@@ -133,7 +134,7 @@ const Products = () => {
                                 <div className="product-slideshow">
                                     <div className="slideshow-wrapper">
                                         <img
-                                            src={selectedProduct.images[currentSlideIndex].startsWith('http') ? selectedProduct.images[currentSlideIndex] : `http://localhost:5000${selectedProduct.images[currentSlideIndex]}`}
+                                            src={selectedProduct.images[currentSlideIndex].startsWith('http') ? selectedProduct.images[currentSlideIndex] : `${API_BASE_URL}${selectedProduct.images[currentSlideIndex]}`}
                                             alt={`${selectedProduct.name} view ${currentSlideIndex + 1}`}
                                             className="active-slide"
                                             style={{ objectFit: 'contain', backgroundColor: '#f8f9fa' }}

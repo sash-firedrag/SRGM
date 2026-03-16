@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useAuth } from '../components/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -46,11 +47,11 @@ const AdminDashboard = () => {
         setError('');
         try {
             // Fetch Enquiries
-            const enqRes = await axios.get('http://localhost:5000/api/enquiry', { headers: { Authorization: `Bearer ${token}` } });
+            const enqRes = await axios.get(`${API_BASE_URL}/api/enquiry`, { headers: { Authorization: `Bearer ${token}` } });
             setEnquiries(enqRes.data.data);
 
             // Fetch Products
-            const prodRes = await axios.get('http://localhost:5000/api/products');
+            const prodRes = await axios.get(`${API_BASE_URL}/api/products`);
             setProducts(prodRes.data.data);
         } catch (err) {
             console.error('Failed to fetch data', err);
@@ -100,7 +101,7 @@ const AdminDashboard = () => {
     // --- ENQUIRY ACTIONS ---
     const updateEnquiryStatus = async (id, newStatus) => {
         try {
-            await axios.patch(`http://localhost:5000/api/enquiry/${id}`, { status: newStatus }, {
+            await axios.patch(`${API_BASE_URL}/api/enquiry/${id}`, { status: newStatus }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchData();
@@ -112,7 +113,7 @@ const AdminDashboard = () => {
     const hideEnquiry = async (id) => {
         if (window.confirm('Are you sure you want to hide this enquiry from the dashboard? (It will be kept in the database)')) {
             try {
-                await axios.patch(`http://localhost:5000/api/enquiry/${id}/hide`, {}, {
+                await axios.patch(`${API_BASE_URL}/api/enquiry/${id}/hide`, {}, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 fetchData();
@@ -125,7 +126,7 @@ const AdminDashboard = () => {
     const deleteEnquiryPermanently = async (id) => {
         if (window.confirm('WARNING: Are you sure you want to PERMANENTLY delete this enquiry? This action cannot be undone.')) {
             try {
-                await axios.delete(`http://localhost:5000/api/enquiry/${id}`, {
+                await axios.delete(`${API_BASE_URL}/api/enquiry/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 fetchData();
@@ -169,7 +170,7 @@ const AdminDashboard = () => {
     const deleteProduct = async (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
             try {
-                await axios.delete(`http://localhost:5000/api/products/${id}`, {
+                await axios.delete(`${API_BASE_URL}/api/products/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 fetchData();
@@ -191,7 +192,7 @@ const AdminDashboard = () => {
                     formData.append('images', imageFiles[i]);
                 }
 
-                const uploadRes = await axios.post('http://localhost:5000/api/upload', formData, {
+                const uploadRes = await axios.post(`${API_BASE_URL}/api/upload`, formData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'
@@ -213,11 +214,11 @@ const AdminDashboard = () => {
             };
 
             if (isEditingProduct) {
-                await axios.put(`http://localhost:5000/api/products/${productForm._id}`, payload, {
+                await axios.put(`${API_BASE_URL}/api/products/${productForm._id}`, payload, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             } else {
-                await axios.post('http://localhost:5000/api/products', payload, {
+                await axios.post(`${API_BASE_URL}/api/products`, payload, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             }
@@ -649,7 +650,7 @@ const AdminDashboard = () => {
                                     {product.images && product.images.length > 0 && (
                                         <div style={{ width: '100%', height: '200px', backgroundColor: '#f8f9fa', overflow: 'hidden' }}>
                                             <img
-                                                src={product.images[0].startsWith('http') ? product.images[0] : `http://localhost:5000${product.images[0]}`}
+                                                src={product.images[0].startsWith('http') ? product.images[0] : `${API_BASE_URL}${product.images[0]}`}
                                                 alt={product.name}
                                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                             />
@@ -687,7 +688,7 @@ const AdminDashboard = () => {
                                 <div className="product-slideshow">
                                     <div className="slideshow-wrapper">
                                         <img
-                                            src={selectedProduct.images[currentSlideIndex].startsWith('http') ? selectedProduct.images[currentSlideIndex] : `http://localhost:5000${selectedProduct.images[currentSlideIndex]}`}
+                                            src={selectedProduct.images[currentSlideIndex].startsWith('http') ? selectedProduct.images[currentSlideIndex] : `${API_BASE_URL}${selectedProduct.images[currentSlideIndex]}`}
                                             alt={`${selectedProduct.name} view ${currentSlideIndex + 1}`}
                                             className="active-slide"
                                             style={{ objectFit: 'contain', backgroundColor: '#f8f9fa' }}
