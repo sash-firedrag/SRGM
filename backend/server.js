@@ -78,6 +78,10 @@ const connectDB = async () => {
 connectDB();
 
 // API Routes
+app.get('/', (req, res) => {
+    res.send('Sri RajaGanapathi Mills API is running successfully!');
+});
+
 app.post('/api/enquiry', async (req, res) => {
     try {
         const { name, email, phone, item, quantity, requirements } = req.body;
