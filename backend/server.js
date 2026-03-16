@@ -439,6 +439,46 @@ app.post('/api/upload', authenticateToken, upload.array('images', 5), async (req
     }
 });
 
+// Proxy Route for Mega Images
+app.get('/api/proxy-image', async (req, res) => {
+    try {
+        const { url } = req.query;
+        if (!url) {
+            return res.status(400).json({ message: 'URL is required.' });
+        }
+
+        const { File: MegaFile } = await import('megajs');
+        const file = MegaFile.fromURL(url);
+        await file.loadAttributes();
+
+        // Check if it's an image (simple check by name)
+        const isImage = /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(file.name);
+        if (!isImage) {
+            // We'll still try to stream it, but maybe log a warning
+            console.warn(`Proxying a non-image file: ${file.name}`);
+        }
+
+        res.setHeader('Content-Type', 'image/jpeg'); // Default to jpeg if uncertain
+        res.setHeader('Cache-Control', 'public, max-age=86400'); // Cache for 1 day
+
+        const downloadStream = file.download();
+        downloadStream.pipe(res);
+        
+        downloadStream.on('error', (err) => {
+            console.error('Mega Download Stream Error:', err);
+            if (!res.headersSent) {
+                res.status(500).send('Error streaming image');
+            }
+        });
+
+    } catch (error) {
+        console.error('Image Proxy Error:', error);
+        if (!res.headersSent) {
+            res.status(500).json({ message: 'Error fetching image from cloud storage' });
+        }
+    }
+});
+
 // Start Server
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);

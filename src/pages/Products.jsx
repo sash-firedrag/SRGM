@@ -71,6 +71,17 @@ const Products = () => {
         return () => window.removeEventListener('scroll', revealOnScroll);
     }, []);
 
+    const getImageUrl = (url) => {
+        if (!url) return '';
+        if (url.startsWith('http')) {
+            if (url.includes('mega.nz')) {
+                return `${API_BASE_URL}/api/proxy-image?url=${encodeURIComponent(url)}`;
+            }
+            return url;
+        }
+        return `${API_BASE_URL}${url}`;
+    };
+
     return (
         <section className="products-preview products-page reveal">
             <div className="container">
@@ -103,18 +114,31 @@ const Products = () => {
                                 key={product._id}
                                 className={`product-card ${product.images && product.images.length > 0 ? 'interactive' : ''}`}
                                 onClick={() => product.images && product.images.length > 0 && setSelectedProduct(product)}
+                                style={{ display: 'flex', flexDirection: 'column' }}
                             >
-                                <div className="card-content">
+                                {product.images && product.images.length > 0 && (
+                                    <div className="card-image" style={{ width: '100%', height: '220px', backgroundColor: '#f8f9fa', overflow: 'hidden' }}>
+                                        <img
+                                            src={getImageUrl(product.images[0])}
+                                            alt={product.name}
+                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                        />
+                                    </div>
+                                )}
+                                <div className="card-content" style={{ flexGrow: 1, padding: '1.5rem' }}>
                                     <span className="category-tag">{product.category}</span>
-                                    <h3>{product.name}</h3>
-                                    <p>{product.description}</p>
+                                    <h3 style={{ margin: '0.5rem 0' }}>{product.name}</h3>
+                                    <p style={{ color: '#666', fontSize: '0.95rem', lineHeight: '1.6' }}>
+                                        {product.description.length > 110 ? product.description.substring(0, 110) + '...' : product.description}
+                                    </p>
                                     {product.features && product.features.length > 0 && (
-                                        <ul>
-                                            {product.features.map((feature, idx) => (
-                                                <li key={idx}>{feature}</li>
-                                            ))}
-                                        </ul>
+                                        <div style={{ marginTop: '0.8rem', fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: '500' }}>
+                                            ✓ {product.features.length} Premium Features
+                                        </div>
                                     )}
+                                </div>
+                                <div style={{ padding: '1rem', textAlign: 'center', borderTop: '1px solid #eee', color: 'var(--primary-color)', fontWeight: '600', fontSize: '0.9rem', backgroundColor: '#fafafa' }}>
+                                    View Product Details
                                 </div>
                             </article>
                         ))
@@ -134,7 +158,7 @@ const Products = () => {
                                 <div className="product-slideshow">
                                     <div className="slideshow-wrapper">
                                         <img
-                                            src={selectedProduct.images[currentSlideIndex].startsWith('http') ? selectedProduct.images[currentSlideIndex] : `${API_BASE_URL}${selectedProduct.images[currentSlideIndex]}`}
+                                            src={getImageUrl(selectedProduct.images[currentSlideIndex])}
                                             alt={`${selectedProduct.name} view ${currentSlideIndex + 1}`}
                                             className="active-slide"
                                             style={{ objectFit: 'contain', backgroundColor: '#f8f9fa' }}

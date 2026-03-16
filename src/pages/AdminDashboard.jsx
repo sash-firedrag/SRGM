@@ -37,6 +37,7 @@ const AdminDashboard = () => {
         images: ''    // We'll split this by comma
     });
     const [imageFiles, setImageFiles] = useState([]);
+    const [isUploadingFiles, setIsUploadingFiles] = useState(false);
 
     // Modal State
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -75,6 +76,18 @@ const AdminDashboard = () => {
     const handleLogout = () => {
         logout();
         navigate('/admin');
+    };
+
+    // --- HELPER LOGIC ---
+    const getImageUrl = (url) => {
+        if (!url) return '';
+        if (url.startsWith('http')) {
+            if (url.includes('mega.nz')) {
+                return `${API_BASE_URL}/api/proxy-image?url=${encodeURIComponent(url)}`;
+            }
+            return url;
+        }
+        return `${API_BASE_URL}${url}`;
     };
 
     // --- MODAL LOGIC ---
@@ -148,8 +161,45 @@ const AdminDashboard = () => {
         setImageFiles([]);
     };
 
-    const handleFileChange = (e) => {
-        setImageFiles(e.target.files);
+    const handleFileChange = async (e) => {
+        const files = e.target.files;
+        if (!files || files.length === 0) return;
+
+        setIsUploadingFiles(true);
+        try {
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
+
+            // Immediately upload to backend (which streams to Mega)
+            const uploadRes = await axios.post(`${API_BASE_URL}/api/upload`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            // Grab the new public Mega URLs
+            const newUrls = uploadRes.data.paths.join(', ');
+
+            setProductForm(prev => {
+                const existing = prev.images ? prev.images.trim() : '';
+                return {
+                    ...prev,
+                    images: existing ? `${existing}, ${newUrls}` : newUrls
+                };
+            });
+            
+            // Clear the file input
+            e.target.value = '';
+            setImageFiles([]);
+        } catch (err) {
+            console.error('File Upload Error:', err);
+            alert('Failed to automatically upload images to cloud. Make sure the backend is active.');
+        } finally {
+            setIsUploadingFiles(false);
+        }
     };
 
     const editProduct = (product) => {
@@ -183,34 +233,13 @@ const AdminDashboard = () => {
     const submitProductForm = async (e) => {
         e.preventDefault();
         try {
-            let uploadedImagePaths = [];
-
-            // Upload images first if selected
-            if (imageFiles && imageFiles.length > 0) {
-                const formData = new FormData();
-                for (let i = 0; i < imageFiles.length; i++) {
-                    formData.append('images', imageFiles[i]);
-                }
-
-                const uploadRes = await axios.post(`${API_BASE_URL}/api/upload`, formData, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                uploadedImagePaths = uploadRes.data.paths;
-            }
-
             const payload = {
                 name: productForm.name,
                 category: productForm.category,
                 description: productForm.description,
                 features: (productForm.features || '').split(',').map(s => s.trim()).filter(Boolean),
                 minOrderQuantity: parseInt(productForm.minOrderQuantity, 10) || 1,
-                images: [
-                    ...(productForm.images || '').split(',').map(s => s.trim()).filter(Boolean),
-                    ...uploadedImagePaths
-                ]
+                images: (productForm.images || '').split(',').map(s => s.trim()).filter(Boolean)
             };
 
             if (isEditingProduct) {
@@ -623,11 +652,19 @@ const AdminDashboard = () => {
                                     </div>
                                     <div style={{ flex: 1 }}>
                                         <label>Or Upload New Local Images</label>
-                                        <input type="file" multiple accept="image/*" onChange={handleFileChange} style={{ padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }} />
+                                        <input 
+                                            type="file" 
+                                            multiple 
+                                            accept="image/*" 
+                                            onChange={handleFileChange} 
+                                            style={{ padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }} 
+                                            disabled={isUploadingFiles}
+                                        />
+                                        {isUploadingFiles && <p style={{ color: 'var(--primary-color)', fontSize: '0.85rem', marginTop: '0.5rem' }}>Uploading to Cloud...</p>}
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                                    <button type="submit" className="btn primary-btn" style={{ border: 'none' }}>
+                                    <button type="submit" className="btn primary-btn" style={{ border: 'none' }} disabled={isUploadingFiles}>
                                         {isEditingProduct ? 'Update Product' : 'Save Product'}
                                     </button>
                                     {isEditingProduct && (
@@ -650,7 +687,7 @@ const AdminDashboard = () => {
                                     {product.images && product.images.length > 0 && (
                                         <div style={{ width: '100%', height: '200px', backgroundColor: '#f8f9fa', overflow: 'hidden' }}>
                                             <img
-                                                src={product.images[0].startsWith('http') ? product.images[0] : `${API_BASE_URL}${product.images[0]}`}
+                                                src={getImageUrl(product.images[0])}
                                                 alt={product.name}
                                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                             />
@@ -688,7 +725,7 @@ const AdminDashboard = () => {
                                 <div className="product-slideshow">
                                     <div className="slideshow-wrapper">
                                         <img
-                                            src={selectedProduct.images[currentSlideIndex].startsWith('http') ? selectedProduct.images[currentSlideIndex] : `${API_BASE_URL}${selectedProduct.images[currentSlideIndex]}`}
+                                            src={getImageUrl(selectedProduct.images[currentSlideIndex])}
                                             alt={`${selectedProduct.name} view ${currentSlideIndex + 1}`}
                                             className="active-slide"
                                             style={{ objectFit: 'contain', backgroundColor: '#f8f9fa' }}
