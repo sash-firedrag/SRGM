@@ -9,8 +9,8 @@ const AdminLogin = () => {
     const navigate = useNavigate();
     const { login } = useAuth();
     const [error, setError] = useState('');
-    const [email, setEmail] = useState('sashwathprakash725@gmail.com');
-    const [password, setPassword] = useState('sashwath2005p');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleGoogleSuccess = async (credentialResponse) => {
@@ -93,7 +93,7 @@ const AdminLogin = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                placeholder="sashwathprakash725@gmail.com"
+                                placeholder="Enter your email"
                                 style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid #ddd', width: '100%' }}
                             />
                         </div>
