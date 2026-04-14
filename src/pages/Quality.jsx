@@ -117,14 +117,6 @@ const Quality = () => {
                                 <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Account Name</p>
                                 <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>Sri RajaGanapathi Mills</p>
                             </div>
-                            <div style={{ marginBottom: '1.2rem' }}>
-                                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Account Number</p>
-                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>0165008700006737</p>
-                            </div>
-                            <div style={{ marginBottom: '1.2rem' }}>
-                                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>IFSC Code</p>
-                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>PUNB0016500</p>
-                            </div>
                         </div>
 
                         {/* Customization Details */}
