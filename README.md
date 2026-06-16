@@ -35,4 +35,4 @@ A full-stack web application for a textile company, featuring a professional fro
 - **File Uploads**: Multer
 
 ### Live Web
-- **[SRGM Website](https://srgm-alpha.vercel.app/)
+- [SRGM](https://srgm-alpha.vercel.app/)
