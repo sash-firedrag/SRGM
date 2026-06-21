@@ -90,10 +90,7 @@ const Quality = () => {
                                 <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginBottom: '0.2rem' }}>GST Registration Number</p>
                                 <p style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>33AAVFS3126L1ZS</p>
                             </div>
-                            <div style={{ marginBottom: '1.2rem' }}>
-                                <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginBottom: '0.2rem' }}>GST Registration Date</p>
-                                <p style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>[Your GST Registration Date]</p>
-                            </div>
+            
                             <div style={{ marginBottom: '1.2rem' }}>
                                 <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', marginBottom: '0.2rem' }}>Company Address</p>
                                 <p style={{ fontSize: '1.1rem', fontWeight: 'bold', lineHeight: '1.5' }}>
