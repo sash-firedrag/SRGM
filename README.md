@@ -34,3 +34,5 @@ A full-stack web application for a textile company, featuring a professional fro
 - **Email**: NodeMailer
 - **File Uploads**: Multer
 
+### Live Web
+- [SRGM](https://srgm-alpha.vercel.app/)
