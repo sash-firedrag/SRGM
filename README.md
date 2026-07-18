@@ -207,6 +207,6 @@ If you like this project, consider giving it a ⭐ on GitHub.
 
 Email: sashwathprakash725@gmail.com
 
-LinkedIn: linkedin.com/in/sashwath-prakash-a44a1232b/
+LinkedIn: https://linkedin.com/in/sashwath-prakash-a44a1232b/
 
 GitHub: https://github.com/sash-firedrag
